@@ -1,0 +1,85 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Aruskas API Documentation",
+    "description": "Documentation for Aruskas",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Rikzan Fernanda",
+      "email": "fernandarikzan@gmail.com",
+      "url": "https://rikzanfernanda.netlify.app"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000",
+      "description": "Development server"
+    },
+    {
+      "url": "https://aruskas.savingid.my.id",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/api/register": {
+      "get": {
+        "summary": "Register user",
+        "tags": ["Authentication"],
+        "responses": {
+          "200": {
+            "description": "Response success from register",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponseSchema"
+                },
+                "examples": {
+                  "Bambang": {
+                    "$ref": "#/components/examples/UserResponseExample"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserResponseSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nama": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "pekerjaan": {
+            "type": "string"
+          },
+          "alamat": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "examples": {
+      "UserResponseExample": {
+        "description": "User response example",
+        "value": {
+          "id": 1,
+          "nama": "Bambang",
+          "email": "bambang@gmail.com",
+          "pekerjaan": "Wiraswasta",
+          "alamat": "Pemalang, Jawa Tengah"
+        }
+      }
+    }
+  }
+}
