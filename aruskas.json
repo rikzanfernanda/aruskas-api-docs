@@ -22,7 +22,7 @@
   ],
   "paths": {
     "/api/register": {
-      "get": {
+      "post": {
         "summary": "Register user",
         "tags": ["Authentication"],
         "responses": {
@@ -31,7 +31,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserResponseSchema"
+                  "$ref": "#/components/schemas/DefaultResponseSchema"
                 },
                 "examples": {
                   "Bambang": {
@@ -43,28 +43,86 @@
           }
         }
       }
+    },
+    "/api/login": {
+      "post": {
+        "summary": "Login user",
+        "tags": ["Authentication"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "Bambang": {
+                  "description": "Example request",
+                  "value": {
+                    "email": "bambang@gmail.com",
+                    "password": "bambang"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Response after login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultResponseSchema"
+                },
+                "examples": {
+                  "Bambang": {
+                    "value": {
+                      "timestamp": "2022-05-31 23:12:00",
+                      "result": [],
+                      "status": 200,
+                      "message": "Login successfully!",
+                      "token": "hfbgbjskjfg...(JWT token)",
+                      "token_type": "bearer",
+                      "id": 1,
+                      "nama": "Bambang",
+                      "email": "bambang@gmail.com"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
-      "UserResponseSchema": {
+      "DefaultResponseSchema": {
         "type": "object",
         "properties": {
-          "id": {
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
             "type": "integer",
-            "format": "int64"
+            "format": "int32"
           },
-          "nama": {
+          "message": {
             "type": "string"
           },
-          "email": {
-            "type": "string"
-          },
-          "pekerjaan": {
-            "type": "string"
-          },
-          "alamat": {
-            "type": "string"
+          "result": {
+            "type": "object"
           }
         }
       }
@@ -73,11 +131,16 @@
       "UserResponseExample": {
         "description": "User response example",
         "value": {
-          "id": 1,
-          "nama": "Bambang",
-          "email": "bambang@gmail.com",
-          "pekerjaan": "Wiraswasta",
-          "alamat": "Pemalang, Jawa Tengah"
+          "timestamp": "2022-05-31 23:12:00",
+          "status": 200,
+          "message": "Data saved successfully!",
+          "result": {
+            "id": 1,
+            "nama": "Bambang",
+            "email": "bambang@gmail.com",
+            "pekerjaan": "Wiraswasta",
+            "alamat": "Pemalang, Jawa Tengah"
+          }
         }
       }
     }
